@@ -311,6 +311,8 @@ namespace GlenEdenTakeways.Migrations
 
                     b.HasKey("PaymentId");
 
+                    b.HasIndex("PaymentTypeId");
+
                     b.ToTable("Payment");
                 });
 
@@ -542,6 +544,17 @@ namespace GlenEdenTakeways.Migrations
                         .HasForeignKey("OrdersOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GlenEdenTakeways.Models.Payment", b =>
+                {
+                    b.HasOne("GlenEdenTakeways.Models.PaymentType", "PaymentType")
+                        .WithMany()
+                        .HasForeignKey("PaymentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PaymentType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

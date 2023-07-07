@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GlenEdenTakeways.Areas.Identity.Data;
 using GlenEdenTakeways.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GlenEdenTakeways.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly IdentityContext _context;
@@ -20,11 +22,22 @@ namespace GlenEdenTakeways.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Employee != null ? 
-                          View(await _context.Employee.ToListAsync()) :
-                          Problem("Entity set 'IdentityContext.Employee'  is null.");
+            if (_context.Employee == null)
+            {
+                return Problem("Entity set 'IdentityContext.Employees' is null.");
+            }
+
+            IQueryable<Employee> employees = _context.Employee; // Use IQueryable instead of var for explicit typing
+
+            if (!String.IsNullOrEmpty(searchString)) // search for customers first name or last name that contain search value
+            {
+                employees = employees.Where(c => c.FirstName.Contains(searchString) || c.LastName.Contains(searchString));
+            }
+
+            var customerList = await employees.ToListAsync();
+            return View(customerList);
         }
 
         // GET: Employees/Details/5

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GlenEdenTakeways.Areas.Identity.Data;
 using GlenEdenTakeways.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GlenEdenTakeways.Controllers
 {
+    [Authorize]
     public class MenusController : Controller
     {
         private readonly IdentityContext _context;
@@ -118,7 +120,7 @@ namespace GlenEdenTakeways.Controllers
             return View(menu);
         }
 
-        // GET: Menus/Delete/5
+        // GET: Menus/Delete/5 
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Menu == null)

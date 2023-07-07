@@ -20,6 +20,7 @@ namespace GlenEdenTakeways.Models
         [Display(Name = "Payment Type")]
         public int PaymentTypeId { get; set; }
 
+        public virtual PaymentType PaymentType { get; set; } = null!;
         public virtual ICollection<Customer> Customer { get; set; } = new List<Customer>();
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }

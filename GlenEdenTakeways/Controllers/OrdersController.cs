@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GlenEdenTakeways.Areas.Identity.Data;
 using GlenEdenTakeways.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GlenEdenTakeways.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IdentityContext _context;

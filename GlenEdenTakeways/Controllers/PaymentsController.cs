@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GlenEdenTakeways.Areas.Identity.Data;
 using GlenEdenTakeways.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GlenEdenTakeways.Controllers
 {
+    [Authorize]
     public class PaymentsController : Controller
     {
         private readonly IdentityContext _context;
@@ -22,9 +24,8 @@ namespace GlenEdenTakeways.Controllers
         // GET: Payments
         public async Task<IActionResult> Index()
         {
-              return _context.Payment != null ? 
-                          View(await _context.Payment.ToListAsync()) :
-                          Problem("Entity set 'IdentityContext.Payment'  is null.");
+            var IdentityContext = _context.Payment.Include(p => p.PaymentType); 
+                return View(await IdentityContext.ToListAsync());
         }
 
         // GET: Payments/Details/5
