@@ -22,11 +22,22 @@ namespace GlenEdenTakeways.Controllers
         }
 
         // GET: Menus
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Menu != null ? 
-                          View(await _context.Menu.ToListAsync()) :
-                          Problem("Entity set 'IdentityContext.Menu'  is null.");
+                if (_context.Menu == null)
+                {
+                    return Problem("Entity set 'IdentityContext'.Menus' is null");
+                }
+
+                IQueryable<Menu> menus = _context.Menu; //Use IQueryable instead of var for explicit typing
+
+                if (!String.IsNullOrEmpty(searchString)) //search filter for menu prices
+                {
+                    menus = menus.Where(m => m.Price.ToString().Contains(searchString));
+                }
+
+                var menuList = await menus.ToListAsync();
+                return View(menuList);
         }
 
         // GET: Menus/Details/5

@@ -19,7 +19,7 @@ namespace GlenEdenTakeways.Models
         public decimal TotalAmount { get; set; }
         [Display(Name = "Payment Type")]
         public int PaymentTypeId { get; set; }
-
+        [Display(Name = "Payment Type")]
         public virtual PaymentType PaymentType { get; set; } = null!;
         public virtual ICollection<Customer> Customer { get; set; } = new List<Customer>();
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();

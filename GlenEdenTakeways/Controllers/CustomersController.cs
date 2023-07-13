@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GlenEdenTakeways.Controllers
 {
-    [Authorize]
+    
     public class CustomersController : Controller
     {
         private readonly IdentityContext _context;
@@ -57,7 +57,7 @@ namespace GlenEdenTakeways.Controllers
 
             return View(customer);
         }
-
+        [Authorize]
         // GET: Customers/Create
         public IActionResult Create()
         {
@@ -79,7 +79,7 @@ namespace GlenEdenTakeways.Controllers
             }
             return View(customer);
         }
-
+        [Authorize]
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -131,6 +131,7 @@ namespace GlenEdenTakeways.Controllers
             return View(customer);
         }
 
+        [Authorize]
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

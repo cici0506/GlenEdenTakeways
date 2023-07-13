@@ -22,10 +22,24 @@ namespace GlenEdenTakeways.Controllers
         }
 
         // GET: Payments
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var IdentityContext = _context.Payment.Include(p => p.PaymentType); 
-                return View(await IdentityContext.ToListAsync());
+            if (_context.Payment == null)
+            {
+                return Problem("Entity set 'IdentityContext'.Payments' is null");
+            }
+
+            IQueryable<Payment> payments = _context.Payment; //Use IQueryable instead of var for explicit typing
+
+            if (!String.IsNullOrEmpty(searchString)) //search filter for payment dates
+            {
+                payments = payments.Where(p => p.PaymentDate.ToString().Contains(searchString));
+            }
+
+            payments = payments.Include(p => p.PaymentType); //Include payment type navigation property
+
+            var paymentList = await payments.ToListAsync();
+            return View(paymentList);
         }
 
         // GET: Payments/Details/5
