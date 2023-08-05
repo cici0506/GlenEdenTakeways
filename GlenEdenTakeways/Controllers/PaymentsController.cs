@@ -20,7 +20,6 @@ namespace GlenEdenTakeways.Controllers
         {
             _context = context;
         }
-
         // GET: Payments
         public async Task<IActionResult> Index(string searchString)
         {
@@ -29,14 +28,14 @@ namespace GlenEdenTakeways.Controllers
                 return Problem("Entity set 'IdentityContext'.Payments' is null");
             }
 
-            IQueryable<Payment> payments = _context.Payment; //Use IQueryable instead of var for explicit typing
+            IQueryable<Payment> payments = _context.Payment; // Use IQueryable instead of var for explicit typing
 
-            if (!String.IsNullOrEmpty(searchString)) //search filter for payment dates
+            if (!String.IsNullOrEmpty(searchString)) // search filter for payment dates
             {
                 payments = payments.Where(p => p.PaymentDate.ToString().Contains(searchString));
             }
 
-            payments = payments.Include(p => p.PaymentType); //Include payment type navigation property
+            payments = payments.Include(p => p.Customer).Include(p => p.PaymentType); // Include related entities
 
             var paymentList = await payments.ToListAsync();
             return View(paymentList);
@@ -63,6 +62,7 @@ namespace GlenEdenTakeways.Controllers
         // GET: Payments/Create
         public IActionResult Create()
         {
+            ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "FullName"); // display customer full name instead of customer id
             return View();
         }
 
@@ -73,7 +73,7 @@ namespace GlenEdenTakeways.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PaymentId,CustomerId,OrderItemId,PaymentDate,TotalAmount,PaymentTypeId")] Payment payment)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(payment);
                 await _context.SaveChangesAsync();
@@ -110,7 +110,7 @@ namespace GlenEdenTakeways.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

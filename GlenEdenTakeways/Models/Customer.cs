@@ -35,6 +35,10 @@ namespace GlenEdenTakeways.Models
         [DataType(DataType.PostalCode)]
         public string ZipCode { get; set; }
 
+        public string FullName // used in payment table to display customers full name 
+        {
+            get { return FirstName + " " + LastName; }
+        }
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
         public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();

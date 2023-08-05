@@ -22,11 +22,22 @@ namespace GlenEdenTakeways.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Order != null ? 
-                          View(await _context.Order.ToListAsync()) :
-                          Problem("Entity set 'IdentityContext.Order'  is null.");
+              if (_context.Order == null)
+            {
+                return Problem("Entity set 'IdentityContext.Orders' is null.");
+            }
+
+            IQueryable<Order> orders = _context.Order.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.Payment);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                orders = orders.Where(c => c.ItemName.Contains(searchString));
+            }
+
+            var orderList = await orders.ToListAsync();
+            return View(orderList);
         }
 
         // GET: Orders/Details/5
@@ -50,6 +61,8 @@ namespace GlenEdenTakeways.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "FullName"); // display customer full name instead of customer id
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "FullName"); //display employee full name instead of employee id
             return View();
         }
 

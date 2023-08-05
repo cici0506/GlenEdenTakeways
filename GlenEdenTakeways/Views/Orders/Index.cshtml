@@ -9,6 +9,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+@*create input field*@
+<form asp-controller="Orders" asp-action="Index">
+    <p>
+        Item Name: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -25,10 +32,10 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CustomerId)
+                @Html.DisplayNameFor(model => model.Customer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeId)
+                @Html.DisplayNameFor(model => model.Employee)
             </th>
             <th></th>
         </tr>
@@ -49,10 +56,10 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CustomerId)
+                @Html.DisplayFor(modelItem => item.Customer.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmployeeId)
+                @Html.DisplayFor(modelItem => item.Employee.FullName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |

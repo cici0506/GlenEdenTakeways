@@ -25,6 +25,10 @@ namespace GlenEdenTakeways.Models
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
+        public string FullName // used in order table to display employee's full name 
+        {
+            get { return FirstName + " " + LastName; }
+        }
 
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }

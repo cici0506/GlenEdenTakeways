@@ -21,9 +21,9 @@ namespace GlenEdenTakeways.Models
         public int CustomerId { get; set; }
         [Display(Name = "Employee")]
         public int EmployeeId { get; set; }
-        public virtual ICollection<Customer> Customer { get; set; } = new List<Customer>();
+        public virtual Customer Customer { get; set; } = null!;
 
-        public virtual ICollection<Employee> Employee { get; set; } = new List<Employee>();
-        public virtual ICollection<Payment> Payment { get; set; } = new List<Payment>();
+        public virtual Employee Employee { get; set; } = null!;
+        public virtual Payment Payment { get; set; } = null!;
     }
 }

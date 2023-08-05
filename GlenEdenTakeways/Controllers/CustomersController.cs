@@ -61,6 +61,7 @@ namespace GlenEdenTakeways.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
+            ViewData["PaymentId"] = new SelectList(_context.Set<Payment>(), "PaymentId", "PaymentId");
             return View();
         }
 
