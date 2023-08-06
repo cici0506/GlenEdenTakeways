@@ -71,7 +71,7 @@ namespace GlenEdenTakeways.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PaymentId,CustomerId,OrderItemId,PaymentDate,TotalAmount,PaymentTypeId")] Payment payment)
+        public async Task<IActionResult> Create([Bind("PaymentId,CustomerId,OrderId,PaymentDate,TotalAmount,PaymentTypeId")] Payment payment)
         {
             if (!ModelState.IsValid)
             {
@@ -103,7 +103,7 @@ namespace GlenEdenTakeways.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PaymentId,CustomerId,OrderItemId,PaymentDate,TotalAmount,PaymentTypeId")] Payment payment)
+        public async Task<IActionResult> Edit(int id, [Bind("PaymentId,CustomerId,OrderId,PaymentDate,TotalAmount,PaymentTypeId")] Payment payment)
         {
             if (id != payment.PaymentId)
             {
