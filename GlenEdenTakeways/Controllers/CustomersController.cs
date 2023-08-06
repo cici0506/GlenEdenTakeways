@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GlenEdenTakeways.Controllers
 {
-    
+    [Authorize]
     public class CustomersController : Controller
     {
         private readonly IdentityContext _context;
@@ -61,7 +61,6 @@ namespace GlenEdenTakeways.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
-            ViewData["PaymentId"] = new SelectList(_context.Set<Payment>(), "PaymentId", "PaymentId");
             return View();
         }
 

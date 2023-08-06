@@ -9,7 +9,7 @@ namespace GlenEdenTakeways.Models
         [Display(Name = "Customer")]
         public int CustomerId { get; set; }
         [Display(Name = "Order Item")]
-        public int OrderItemId { get; set; }
+        public int OrderId { get; set; }
         [Display(Name = "Payment Date")]
         [DataType(DataType.Date)]
         public DateTime PaymentDate { get; set; }

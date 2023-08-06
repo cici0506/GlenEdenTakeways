@@ -24,12 +24,7 @@ namespace GlenEdenTakeways.Controllers
         // GET: Orders
         public async Task<IActionResult> Index(string searchString)
         {
-              if (_context.Order == null)
-            {
-                return Problem("Entity set 'IdentityContext.Orders' is null.");
-            }
-
-            IQueryable<Order> orders = _context.Order.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.Payment);
+            IQueryable<Order> orders = _context.Order.Include(o => o.Customer).Include(o => o.Employee);
 
             if (!String.IsNullOrEmpty(searchString))
             {
