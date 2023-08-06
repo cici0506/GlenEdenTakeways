@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GlenEdenTakeways.Areas.Identity.Data;
+using GlenEdenTakeways.Areas.Identity.Data; 
 using GlenEdenTakeways.Models;
 using Microsoft.AspNetCore.Authorization;
 
